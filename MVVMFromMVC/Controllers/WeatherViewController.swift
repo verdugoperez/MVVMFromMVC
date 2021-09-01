@@ -32,11 +32,7 @@ class WeatherViewController: UIViewController {
 
   
  
-  private let tempFormatter: NumberFormatter = {
-    let tempFormatter = NumberFormatter()
-    tempFormatter.numberStyle = .none
-    return tempFormatter
-  }()
+  
   private let viewModel = WeatherViewModel()
   
   @IBOutlet weak var cityLabel: UILabel!
@@ -52,6 +48,18 @@ class WeatherViewController: UIViewController {
     
     viewModel.date.bind { [weak self] date in
       self?.dateLabel.text = date
+    }
+    
+    viewModel.icon.bind { [weak self] image in
+      self?.currentIcon.image = image
+    }
+        
+    viewModel.summary.bind { [weak self] summary in
+      self?.currentSummaryLabel.text = summary
+    }
+        
+    viewModel.forecastSummary.bind { [weak self] forecast in
+      self?.forecastSummary.text = forecast
     }
   }
 
