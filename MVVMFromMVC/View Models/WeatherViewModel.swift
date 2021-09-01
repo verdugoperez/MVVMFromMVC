@@ -43,6 +43,13 @@ public class WeatherViewModel {
   private let geocoder = LocationGeocoder()
   private static let defaultAddress = "Culiacán"
   let locationName = Box("Loading...")
+  let date = Box(" ")
+  
+  private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE, MMM d"
+    return dateFormatter
+  }()
   
   init() {
     changeLocation(to: Self.defaultAddress)
@@ -55,9 +62,12 @@ public class WeatherViewModel {
         guard
           let self = self,
           let weatherData = weatherData
+      
           else {
             return
           }
+      
+        self.date.value = self.dateFormatter.string(from: weatherData.date)
     }
   }
   
