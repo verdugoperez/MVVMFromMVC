@@ -42,7 +42,7 @@ import UIKit.UIImage
 public class WeatherViewModel {
   private let geocoder = LocationGeocoder()
   private static let defaultAddress = "Culiacán"
-  let locationName = Box("Loading...")
+  let locationName = Box("Cargando...")
   let date = Box(" ")
   let icon: Box<UIImage?> = Box(nil)  //no image initially
   let summary = Box(" ")
@@ -50,7 +50,8 @@ public class WeatherViewModel {
   
   private let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE, MMM d"
+    dateFormatter.dateFormat = "EEEE, d MMMM"
+    dateFormatter.locale = .init(identifier: "es_ES")
     return dateFormatter
   }()
   
@@ -85,7 +86,7 @@ public class WeatherViewModel {
   }
   
   func changeLocation(to newLocation: String) {
-    locationName.value = "Loading..."
+    locationName.value = "Cargando..."
     geocoder.geocode(addressString: newLocation) { [weak self] locations in
       guard let self = self else { return }
       if let location = locations.first {

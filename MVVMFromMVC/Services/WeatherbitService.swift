@@ -45,7 +45,8 @@ class WeatherbitService {
   private static let apiKey = "91cfa314adf14112a0fd89aada651927"
   private static let host = "api.weatherbit.io"
   private static let path = "/v2.0/current"
-  private static let fahrenheit = "I"
+  private static let celcius = "M"
+  private static let language = "es"
   private static let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd:HH"
@@ -59,9 +60,10 @@ class WeatherbitService {
     urlBuilder.path = path
     urlBuilder.queryItems = [
       URLQueryItem(name: "key", value: apiKey),
-      URLQueryItem(name: "units", value: fahrenheit),
+      URLQueryItem(name: "units", value: celcius),
       URLQueryItem(name: "lat", value: "\(latitude)"),
-      URLQueryItem(name: "lon", value: "\(longitude)")
+      URLQueryItem(name: "lon", value: "\(longitude)"),
+      URLQueryItem(name: "lang", value: "\(language)")
     ]
     
     let url = urlBuilder.url!
